@@ -81,19 +81,22 @@ core_loop() ->
             ok;
 
         { publish, Source, Channel, Content } ->
-            [ Target ! { broadcast, Channel, Content } || Target <- get_listeners() ],
+            [ Target ! { broadcast, Channel, Content, Source } || Target <- get_listeners(Channel) ],
             core_loop();
 
         { subscribe, Listener, Channel } ->
-            put( {channel,Channel}, lists:usort(get_listeners() ++ [Listener])),
+            put( {channel,Channel}, { targets, lists:usort(get_listeners(Channel) ++ [Listener]) }),
             core_loop();
 
         { unsubscribe, Listener, Channel } ->
-            put( {channel,Channel}, [ Pid || Pid <- get_listeners(), Pid =/= Listener ] ),
+            put( {channel,Channel}, { targets, [ Pid || Pid <- get_listeners(Channel), Pid =/= Listener ] } ),
             core_loop();
 
         { destroy, Channel } ->
             erase(Channel),
+            core_loop();
+
+        _ ->
             core_loop()
 
     end.
