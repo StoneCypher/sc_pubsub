@@ -15,4 +15,4 @@ Not tested; mother approved.  Built on **should work** technology.  Prolly don't
 Polemic :neckbeard:
 -------------------
 
-`htstub` is MIT licensed, because viral licenses and newspeak language modification are evil.  Free is ***only*** free when it's free for everyone.
+`sc_pubsub` is MIT licensed, because viral licenses and newspeak language modification are evil.  Free is ***only*** free when it's free for everyone.
